@@ -44,38 +44,6 @@ This project was an AIoT-based Smart Parking System aimed at solving the parking
 - Unit, integration, and system testing using a V-model.
 - Voice command testing using confusion matrix.
 
-## 📂 Project Structure
-AIoT-Smart-Parking-System/
-│
-├── Automated_Parking.ino           # Arduino code for IR sensors, LCD, and servo motor control
-│
-├── backend/                        # Flask-based backend logic
-│   ├── app.py                      # Main Flask application with routes and server setup
-│   ├── lcd_serial_display.py      # Reads serial data from Arduino and parses parking info
-│   ├── reports_handler.py         # Inserts parsed data into the MySQL reports table
-│   └── db_config.py               # Centralized DB connection configuration
-│
-├── voice_bot/                      # AI chatbot functionality
-│   └── nlp_handler.py             # Handles voice commands using NLP (NLTK + spaCy)
-│
-├── templates/                      # HTML templates for the web app
-│   ├── dashboard.html             # Real-time dashboard interface
-│   ├── reports.html               # Historical reports and analytics
-│   ├── register.html              # User registration page
-│   └── layout.html                # Shared base layout for templating
-│
-├── static/                         # Frontend static assets
-│   ├── css/                       # Tailwind and custom styles
-│   ├── js/                        # JavaScript for live updates, DataTables, and interactivity
-│   └── images/                    # Icons, logos, UI illustrations
-│
-├── database/
-│   └── smart_parking_system.sql   # SQL schema for users, reports, vehicles, and more
-│
-├── requirements.txt               # Python dependencies for setting up the backend
-├── README.md                      # Project documentation (this file)
-└── run_instructions.md            # Setup and usage instructions for the system
-
 
 ## 🔮 Future Work Examples
 
