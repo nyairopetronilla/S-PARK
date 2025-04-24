@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Slot Usage Analytics{% endblock %}
+{% block content %}
+
+<div class="space-y-10">
+  <h1 class="text-3xl font-bold">📊 Slot Usage Analytics</h1>
+
+  <!-- Line Chart -->
+  <section class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-2">Weekly Slot Trends (Line Chart)</h2>
+    <canvas id="lineChart" height="100"></canvas>
+  </section>
+
+  <!-- Stacked Bar Chart -->
+  <section class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-2">Daily Usage (Stacked Bar Chart)</h2>
+    <canvas id="stackedBarChart" height="100"></canvas>
+  </section>
+
+  <!-- Summary -->
+  <section class="bg-gray-800 p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-2">🔍 Summary</h2>
+    <p>Most used slot: <span id="mostUsedSlot" class="font-bold text-green-400">—</span></p>
+    <p>Busiest day: <span id="busiestDay" class="font-bold text-yellow-400">—</span></p>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/static/js/analytics.js"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Print Vehicle</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      color: #333;
+    }
+    .print-container {
+      border: 1px solid #ccc;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .label {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body onload="window.print()">
+  <div class="print-container">
+    <h2>Vehicle Registration Details</h2>
+    <p><span class="label">Owner:</span> {{ vehicle.owner_name }}</p>
+    <p><span class="label">Phone:</span> {{ vehicle.phone_number }}</p>
+    <p><span class="label">Plate Number:</span> {{ vehicle.registration_plate }}</p>
+    <p><span class="label">Brand:</span> {{ vehicle.brand }}</p>
+    <p><span class="label">Model:</span> {{ vehicle.model }}</p>
+    <p><span class="label">Color:</span> {{ vehicle.color }}</p>
+    <p><span class="label">Registered by User ID:</span> {{ vehicle.user_id }}</p>
+  </div>
+</body>
+</html>

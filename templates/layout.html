@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Smart Parking{% endblock %}</title>
+
+  <!-- Tailwind CSS + Dark mode -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+
+  <!-- Dynamic Navbar based on User Role -->
+  <nav class="bg-gray-800 px-6 py-4 shadow-md flex flex-wrap md:flex-nowrap justify-between items-center gap-4">
+    <div class="flex items-center gap-3 min-w-fit">
+      <img src="{{ url_for('static', filename='strathmore-crest.jpg') }}" alt="Strathmore Logo" class="h-8 w-auto max-w-[32px] rounded">
+      <span class="text-xl font-bold whitespace-nowrap">Strathmore Parking</span>
+    </div>
+    <ul class="flex flex-wrap gap-6 text-sm justify-end flex-1">
+      {% if session.get('role') == 'admin' %}
+        <li><a href="/admin/dashboard" class="hover:text-blue-400">Dashboard</a></li>
+        <li><a href="/admin/users" class="hover:text-blue-400">User Management</a></li>
+        <li><a href="/reports" class="hover:text-blue-400">Reports</a></li>
+        <li><a href="/analytics" class="hover:text-blue-400">Analytics</a></li>
+        <li><a href="/chatbot" class="hover:text-blue-400">Chatbot</a></li>
+        <li><a href="/feedback" class="hover:text-blue-400">Feedback</a></li>
+        <li><a href="/vehicles" class="hover:text-blue-400">List of Vehicles</a></li>
+        
+      {% else %}
+        <li><a href="/dashboard" class="hover:text-blue-400">Dashboard</a></li>
+        <li><a href="/analytics" class="hover:text-blue-400">Analytics</a></li>
+        <li><a href="/chatbot" class="hover:text-blue-400">Chatbot</a></li>
+        <li><a href="/vehicles" class="hover:text-blue-400">List of Vehicles</a></li>      {% endif %}
+        <li><a href="/admin/reservations" class="hover:underline">Reservations</a></li>
+        <li><a href="/logout" class="text-red-400 hover:text-red-300">Logout</a></li>
+    </ul>
+  </nav>
+  
+
+  <!-- Main Content -->
+  <main class="p-6 max-w-7xl mx-auto">
+    {% block content %}{% endblock %}
+  </main>
+
+</body>
+</html>

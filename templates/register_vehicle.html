@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %}Register Vehicle{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 bg-gray-800 p-8 rounded-2xl shadow-xl">
+  <h2 class="text-2xl font-bold mb-6 text-center">Register Your Vehicle</h2>
+  <form action="/register-vehicle" method="POST" class="space-y-4">
+    <input type="text" name="registration_plate" placeholder="Registration Plate" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="owner_name" placeholder="Owner Full Name" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="phone_number" placeholder="Phone Number" class="w-full p-2 rounded bg-gray-700 text-white" required>
+
+    <!-- Brand dropdown with search -->
+    <select name="brand" id="brand-select" class="w-full p-2 rounded bg-gray-700 text-white" required>
+      <option value="" disabled selected>Select Brand</option>
+      {% for brand in car_data %}
+        <option value="{{ brand }}">{{ brand }}</option>
+      {% endfor %}
+    </select>
+
+    <!-- Model dropdown that filters by brand -->
+    <select name="model" id="model-select" class="w-full p-2 rounded bg-gray-700 text-white" required>
+      <option value="" disabled selected>Select Model</option>
+      {% for brand, models in car_data.items() %}
+        {% for model in models %}
+          <option value="{{ model }}" data-brand="{{ brand }}">{{ model }}</option>
+        {% endfor %}
+      {% endfor %}
+    </select>
+
+    <input type="text" name="color" placeholder="Color" class="w-full p-2 rounded bg-gray-700 text-white" required>
+
+    <button type="submit" class="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded">
+      Register Vehicle
+    </button>
+  </form>
+</div>
+
+<script>
+  const modelSelect = document.getElementById('model-select');
+  const brandSelect = document.getElementById('brand-select');
+  const allModelOptions = [...modelSelect.options];
+
+  brandSelect.addEventListener('change', function () {
+    const selectedBrand = this.value;
+    modelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+    allModelOptions.forEach(option => {
+      if (option.dataset.brand === selectedBrand) {
+        modelSelect.appendChild(option);
+      }
+    });
+  });
+</script>
+{% endblock %}

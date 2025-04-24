@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}User Dashboard{% endblock %}
+{% block content %}
+
+<!-- Welcome Banner -->
+<div class="text-xl font-semibold mb-4">👋 Welcome, {{ session['username'] | capitalize }}</div>
+
+<!-- Real-time LCD Data Display -->
+<section class="bg-gray-800 p-6 rounded-xl shadow-md">
+  <h2 class="text-lg font-bold mb-4">📟 Real-time Parking Updates</h2>
+  <p>Available Slots: <span id="available" class="font-bold text-green-400">Loading...</span></p>
+
+  <div class="grid grid-cols-3 gap-4 mt-4">
+    {% for i in range(1, 7) %}
+    <div id="s{{ i }}"
+         class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-700 text-white font-bold shadow-md transition-all duration-300">
+      <div class="text-xs text-gray-400">SLOT</div>
+      <div class="text-lg">S{{ i }}</div>
+      <div id="s{{ i }}-status" class="text-sm mt-1 font-semibold">Checking...</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- User Quick Actions -->
+<section class="grid gap-6 md:grid-cols-2 mt-8">
+  <div class="bg-gray-800 p-6 rounded-xl shadow-md">
+    <h3 class="text-lg font-bold mb-2">📈 View Parking Analytics</h3>
+    <p>See daily and weekly usage trends.</p>
+    <a href="/analytics" class="text-blue-400 hover:underline">View Analytics →</a>
+  </div>
+
+  <div class="bg-gray-800 p-6 rounded-xl shadow-md">
+    <h3 class="text-lg font-bold mb-2">🤖 Chatbot Assistant</h3>
+    <p>Ask questions or report parking issues.</p>
+    <a href="/chatbot" class="text-blue-400 hover:underline">Open Chatbot →</a>
+  </div>
+</section>
+
+<!-- Slot Polling Script -->
+<script src="/static/js/dashboard.js"></script>
+
+{% endblock %}

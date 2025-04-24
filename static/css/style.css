@@ -1,0 +1,59 @@
+/* Global page transitions and font smoothing */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Header enhancements */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Button transitions */
+  button {
+    transition: all 0.2s ease-in-out;
+  }
+  
+  button:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Chart container styling */
+  canvas {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  /* Real-time status display */
+  #data-display ul li {
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  
+  #data-display ul li:nth-child(even) {
+    background-color: rgba(16, 185, 129, 0.1); /* Teal */
+  }
+  
+  #data-display ul li:nth-child(odd) {
+    background-color: rgba(239, 68, 68, 0.1); /* Red */
+  }
+  
+  /* Fade-in animation */
+  #data-display {
+    opacity: 0;
+    animation: fadeIn 1.2s ease-in-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  

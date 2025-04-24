@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block title %}Chatbot Feedback Dashboard{% endblock %}
+{% block content %}
+
+<h1 class="text-3xl font-bold mb-6">📊 Chatbot Feedback Dashboard</h1>
+
+<!-- Filter + Export -->
+<div class="flex flex-wrap gap-4 items-center mb-4">
+  <select id="intentFilter" onchange="filterTable()" class="text-black p-2 rounded">
+    <option value="">All Intents</option>
+    <option value="greeting">Greeting</option>
+    <option value="check_availability">Check Availability</option>
+    <option value="find_empty_slots">Find Empty Slots</option>
+    <option value="vehicle_status">Vehicle Status</option>
+    <option value="security_alert">Security Alert</option>
+    <option value="thank_you">Thank You</option>
+    <option value="goodbye">Goodbye</option>
+    <option value="other_noise">Other Noise</option>
+  </select>
+  <button onclick="exportCSV()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">⬇️ Export CSV</button>
+</div>
+
+<!-- Table -->
+<div class="overflow-x-auto">
+  <table id="feedbackTable" class="min-w-full text-sm table-auto border border-gray-700 rounded-lg overflow-hidden">
+    <thead class="bg-gray-800 text-white uppercase text-xs font-bold">
+      <tr>
+        <th class="px-4 py-3 text-left">#</th>
+        <th class="px-4 py-3 text-left">User</th>
+        <th class="px-4 py-3 text-left">Message</th>
+        <th class="px-4 py-3 text-left">Response</th>
+        <th class="px-4 py-3 text-left">Intent</th>
+        <th class="px-4 py-3 text-left">Rating</th>
+        <th class="px-4 py-3 text-left">Time</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-800">
+      {% for entry in feedback %}
+      <tr data-id="{{ entry[0] }}" data-intent="{{ entry[5] }}">
+        <td class="px-4 py-2">{{ entry[0] }}</td>
+        <td class="px-4 py-2">{{ entry[1] }}</td>
+        <td class="px-4 py-2">{{ entry[2] }}</td>
+        <td class="px-4 py-2 text-green-400">{{ entry[3] }}</td>
+        <td class="px-4 py-2 text-sm text-yellow-300">{{ entry[5] or '—' }}</td>
+        <td class="px-4 py-2">
+          <button onclick="rateFeedback({{ entry[0] }}, 'up')" class="mr-2">👍</button>
+          <button onclick="rateFeedback({{ entry[0] }}, 'down')">👎</button>
+        </td>
+        <td class="px-4 py-2 text-xs text-gray-400">{{ entry[4] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function filterTable() {
+    const intent = document.getElementById("intentFilter").value;
+    const rows = document.querySelectorAll("#feedbackTable tbody tr");
+    rows.forEach(row => {
+      const rowIntent = row.getAttribute("data-intent");
+      row.style.display = !intent || rowIntent === intent ? "" : "none";
+    });
+  }
+
+  function exportCSV() {
+    let csv = "ID,User,Message,Response,Intent,Timestamp\\n";
+    const rows = document.querySelectorAll("#feedbackTable tbody tr");
+    rows.forEach(row => {
+      if (row.style.display !== "none") {
+        const cols = row.querySelectorAll("td");
+        csv += Array.from(cols).map(col => `\"${col.innerText}\"`).join(",") + "\\n";
+      }
+    });
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "chatbot_feedback.csv";
+    link.click();
+  }
+
+  function rateFeedback(id, rating) {
+    fetch(`/api/feedback/rate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ feedback_id: id, rating })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "success") {
+        const buttons = document.querySelectorAll(`tr[data-id='${id}'] button`);
+        buttons.forEach(btn => btn.classList.remove("bg-green-600", "bg-red-600"));
+        const ratedBtn = document.querySelector(`tr[data-id='${id}'] button[onclick*="${rating}"]`);
+        if (rating === "up") ratedBtn.classList.add("bg-green-600");
+        else ratedBtn.classList.add("bg-red-600");
+      } else {
+        alert("Error rating feedback");
+      }
+    });
+  }
+</script>
+
+{% endblock %}

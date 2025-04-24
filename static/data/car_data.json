@@ -1,0 +1,19 @@
+{
+    "Toyota": ["Axio", "Premio", "Rav4", "Corolla", "Vitz", "Land Cruiser", "Harrier", "Probox", "Hilux", "Noah"],
+    "Honda": ["Fit", "Civic", "CR-V", "Insight", "Accord", "Vezel", "Stream", "Freed", "HR-V"],
+    "Mazda": ["Demio", "CX-5", "Axela", "Mazda3", "CX-3", "BT-50", "RX-8", "Mazda6"],
+    "Nissan": ["Note", "X-Trail", "Sunny", "Navara", "Juke", "March", "Serena", "Murano", "Dualis"],
+    "Subaru": ["Forester", "Impreza", "Outback", "Legacy", "XV", "BRZ", "Levorg"],
+    "Mitsubishi": ["Outlander", "Lancer", "Pajero", "Mirage", "Eclipse Cross", "Delica"],
+    "Ford": ["Focus", "Fiesta", "Escape", "Ranger", "Explorer", "Mustang", "Edge"],
+    "Volkswagen": ["Golf", "Polo", "Jetta", "Passat", "Tiguan", "Touareg", "Beetle"],
+    "Hyundai": ["Tucson", "Elantra", "Santa Fe", "Accent", "i20", "i10"],
+    "Kia": ["Sportage", "Sorento", "Rio", "Cerato", "Picanto", "Optima"],
+    "Chevrolet": ["Cruze", "Malibu", "Spark", "Equinox", "Captiva", "Trailblazer"],
+    "BMW": ["3 Series", "5 Series", "X3", "X5", "1 Series", "7 Series"],
+    "Mercedes-Benz": ["C-Class", "E-Class", "GLA", "GLC", "A-Class", "S-Class"],
+    "Audi": ["A3", "A4", "A6", "Q3", "Q5", "Q7"],
+    "Peugeot": ["208", "308", "3008", "2008", "5008"],
+    "Renault": ["Clio", "Megane", "Captur", "Duster", "Koleos"]
+  }
+  

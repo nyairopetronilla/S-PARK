@@ -1,0 +1,96 @@
+text,intent
+Hello,greeting
+Hi,greeting
+Good morning,greeting
+Good afternoon,greeting
+How are you,greeting
+Is anyone there,greeting
+Hey bot,greeting
+Yo,greeting
+Greetings,greeting
+What's up,greeting
+Hey,greeting
+Hi bot,greeting
+Hello assistant,greeting
+Check available parking spots,check_availability
+How many spaces are left in main campus,check_availability
+Show me vacancy status,check_availability
+Is student parking full,check_availability
+Check staff parking availability,check_availability
+Parking status for visitor area,check_availability
+Free spots in administration block,check_availability
+Show parking capacity,check_availability
+Are there any spaces left,check_availability
+Current parking occupancy,check_availability
+Tell current availability,check_availability
+Do we have space left,check_availability
+Slots open right now,check_availability
+Is parking available,check_availability
+Any parking left?,check_availability
+How full is the lot?,check_availability
+Find empty spaces in lot A,find_empty_slots
+Show available spots for staff,find_empty_slots
+Direct visitor to parking space,find_empty_slots
+Where should I direct incoming vehicles,find_empty_slots
+Guide student to available spot,find_empty_slots
+Empty spots near library,find_empty_slots
+Available spaces for disabled parking,find_empty_slots
+Find space for faculty member,find_empty_slots
+Show me free spots for VIP,find_empty_slots
+Open spaces in overflow parking,find_empty_slots
+Which slots are empty,find_empty_slots
+Is slot 4 available,find_empty_slots
+Any open slots,find_empty_slots
+Many slots open,find_empty_slots
+Slot empty,find_empty_slots
+What slots are free?,find_empty_slots
+List free slots,find_empty_slots
+Locate vehicle with plate KBZ123,vehicle_status
+Find car registered to John Smith,vehicle_status
+Where is the red Toyota,vehicle_status
+Check status of vehicle KCA456,vehicle_status
+Find car owner for slot A12,vehicle_status
+Vehicle information for slot B25,vehicle_status
+Registration details for white Mercedes,vehicle_status
+Who owns the car in admin parking spot 5,vehicle_status
+Find student vehicle information,vehicle_status
+Show me permit status for KDG789,vehicle_status
+Track vehicle in spot 3,vehicle_status
+Vehicle info for visitor area,vehicle_status
+Where is my car,vehicle_status
+Where did I park?,vehicle_status
+Track my car,vehicle_status
+Report suspicious activity in lot B,security_alert
+Security issue at main entrance,security_alert
+Unauthorized vehicle in staff parking,security_alert
+Vehicle without permit in slot C15,security_alert
+Emergency situation in visitor parking,security_alert
+Alert team about parking violation,security_alert
+Vandalism report in student parking,security_alert
+Report blocked emergency exit,security_alert
+Suspicious person in the parking lot,security_alert
+Need backup at west parking entrance,security_alert
+Someone is breaking into a car,security_alert
+Car theft,security_alert
+Fight in parking lot,security_alert
+I want to reserve a parking spot,reserve_slot
+Book a parking slot,reserve_slot
+Reserve space for tomorrow,reserve_slot
+How do I reserve a slot?,reserve_slot
+Can I pre-book a parking space?,reserve_slot
+Schedule my parking in advance,reserve_slot
+Reserve slot 3 for me,reserve_slot
+Is it possible to book parking?,reserve_slot
+I need to reserve a space,reserve_slot
+Reserve parking for my car,reserve_slot
+Can I book a bay?,reserve_slot
+Reset system,other_noise
+System status,other_noise
+Weather forecast,other_noise
+Call extension 4578,other_noise
+What time is it,other_noise
+Change display settings,other_noise
+Send message to team,other_noise
+Can you hear me,other_noise
+Testing microphone,other_noise
+Background noise,other_noise

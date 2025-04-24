@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block title %}Edit Vehicle{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 bg-gray-800 p-8 rounded-2xl shadow-xl">
+  <h2 class="text-2xl font-bold mb-6 text-center">Edit Vehicle Details</h2>
+  <form method="POST" class="space-y-4">
+    <input type="text" name="owner_name" value="{{ vehicle.owner_name }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="phone_number" value="{{ vehicle.phone_number }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="registration_plate" value="{{ vehicle.registration_plate }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="brand" value="{{ vehicle.brand }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="model" value="{{ vehicle.model }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+    <input type="text" name="color" value="{{ vehicle.color }}" class="w-full p-2 rounded bg-gray-700 text-white" required>
+
+    <button class="w-full py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded">Save Changes</button>
+  </form>
+</div>
+{% endblock %}

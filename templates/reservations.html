@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block title %}Reservations Management{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-10">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-bold">📋 Reservations</h2>
+    <a href="/dashboard" class="text-blue-500 hover:underline">← Back to Dashboard</a>
+  </div>
+
+  {% if session['role'] == 'admin' %}
+  <!-- Add Reservation Form (Admin Only) -->
+  <form method="POST" class="bg-gray-800 p-6 rounded-xl shadow mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <select name="slot_id" required class="rounded p-2 text-black">
+        <option value="">Select Slot</option>
+        {% for i in range(1, 7) %}
+        <option value="{{ i }}">Slot {{ i }}</option>
+        {% endfor %}
+      </select>
+      <select name="vehicle_id" required class="rounded p-2 text-black">
+        <option value="">Select Vehicle</option>
+        {% for vehicle in vehicles %}
+        <option value="{{ vehicle.vehicle_id }}">{{ vehicle.registration_plate }} - {{ vehicle.brand }} {{ vehicle.model }}</option>
+        {% endfor %}
+      </select>
+      <input type="datetime-local" name="expires_at" required class="rounded p-2 text-black" />
+      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded shadow">
+        ➕ Add Reservation
+      </button>
+    </div>
+  </form>
+  {% endif %}
+
+  <!-- Reservation Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full text-sm text-left bg-gray-800 text-white rounded-xl" id="reservationTable">
+      <thead>
+        <tr class="bg-gray-700 text-gray-300">
+          <th class="p-2">ID</th>
+          <th class="p-2">User</th>
+          <th class="p-2">Slot</th>
+          <th class="p-2">Vehicle</th>
+          <th class="p-2">Reserved At</th>
+          <th class="p-2">Expires</th>
+          <th class="p-2">Fulfilled</th>
+          <th class="p-2">Status</th>
+          {% if session['role'] == 'admin' %}<th class="p-2">Actions</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservations %}
+        <tr class="border-b border-gray-600">
+          <td class="p-2">{{ r.reservation_id }}</td>
+          <td class="p-2">{{ r.reserved_by }}</td>
+          <td class="p-2">S{{ r.slot_id }}</td>
+          <td class="p-2">{{ r.registration_plate }} - {{ r.brand }} {{ r.model }} </td>
+          <td class="p-2">{{ r.reserved_at }}</td>
+          <td class="p-2">{{ r.expires_at }}</td>
+          <td class="p-2">{% if r.fulfilled %}✅{% else %}❌{% endif %}</td>
+          <td class="p-2">
+            {% if r.fulfilled %}
+              <span class="text-green-400">Completed</span>
+            {% elif r.expires_at < now() %}
+              <span class="text-red-400">Expired</span>
+            {% else %}
+              <span class="text-yellow-300">Active</span>
+            {% endif %}
+          </td>
+          {% if session['role'] == 'admin' %}
+          <td class="p-2 space-x-2">
+            <a href="/admin/reservations/edit/{{ r.reservation_id }}" class="text-blue-400 hover:underline">Edit</a>
+            <a href="/admin/reservations/delete/{{ r.reservation_id }}" class="text-red-400 hover:underline" onclick="return confirm('Are you sure you want to delete this reservation?');">Delete</a>
+          </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

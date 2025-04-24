@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+
+<!-- Welcome Banner -->
+<div class="text-xl font-semibold mb-6">👑 Admin Panel - Welcome {{ session['username'] | capitalize }}</div>
+
+<!-- Real-time LCD Display (reuse from user dashboard) -->
+<section class="bg-gray-800 p-6 rounded-xl shadow-xl">
+  <h2 class="text-lg font-bold mb-4">📟 Real-time Parking Updates</h2>
+  <div id="parking-status">
+    <p>Available Slots: <span id="available" class="font-bold text-green-400">Loading...</span></p>
+    <div class="grid grid-cols-3 md:grid-cols-3 gap-4 mt-4">
+      {% for i in range(1, 7) %}
+      <div id="s{{ i }}" class="rounded-xl p-4 bg-gray-700 text-center">
+        <h3 class="text-sm text-gray-400">SLOT</h3>
+        <div class="text-2xl font-bold">S{{ i }}</div>
+        <div id="s{{ i }}-status" class="mt-2">Checking...</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Main Panel Grid -->
+<section class="grid gap-8 md:grid-cols-2 mt-10">
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+    <h3 class="text-lg font-bold mb-2">📋 Manage Users</h3>
+    <a href="/admin/users" class="text-blue-400 hover:underline">Go to User Management</a>
+  </div>
+
+  <div class="bg-gray-800 p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300">
+    <h3 class="text-lg font-bold mb-2">📊 View Reports</h3>
+    <a href="/reports" class="text-blue-400 hover:underline">Go to Reports</a>
+  </div>
+</section>
+
+<script>
+  function fetchLCDData() {
+    fetch("/lcd-data")
+      .then(response => response.json())
+      .then(data => {
+        const available = data.available_slots;
+        const color = available === 0 ? 'text-red-500' : 'text-emerald-400';
+        document.getElementById("available").innerHTML = `<span class="${color} font-bold">${available}</span>`;
+
+        for (let i = 1; i <= 6; i++) {
+          const slotBox = document.getElementById(`s${i}`);
+          const slotStatus = document.getElementById(`s${i}-status`);
+
+          const slotData = data.slots.find(s => s.id === i);
+          const occupied = slotData?.occupied || false;
+          const reserved = slotData?.reserved || false;
+
+          if (reserved) {
+            slotBox.className = "rounded-xl p-4 bg-yellow-400 text-black text-center font-bold shadow";
+            slotStatus.innerHTML = "🔘 Reserved";
+          } else if (occupied) {
+            slotBox.className = "rounded-xl p-4 bg-rose-600 text-white text-center font-bold shadow";
+            slotStatus.innerHTML = "🚗 Occupied";
+          } else {
+            slotBox.className = "rounded-xl p-4 bg-emerald-600 text-white text-center font-bold shadow";
+            slotStatus.innerHTML = "✅ Available";
+          }
+        }
+      })
+      .catch(err => {
+        document.getElementById("available").textContent = "Error";
+        console.error("LCD fetch error:", err);
+      });
+  }
+  fetchLCDData();
+  setInterval(fetchLCDData, 2000);
+</script>
+
+{% endblock %}

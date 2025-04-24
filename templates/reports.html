@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-10">
+  <div class="flex justify-between items-center mb-6">
+    <div class="flex items-center space-x-3">
+      <img src="{{ url_for('static', filename='strathmore-crest.jpg') }}" class="w-10 h-10 rounded" />
+      <h2 class="text-3xl font-bold text-blue-400">📋 Reports</h2>
+    </div>
+    <a href="/dashboard" class="text-blue-400 hover:underline">← Back to Dashboard</a>
+  </div>
+
+
+  <div class="overflow-x-auto">
+    <table id="reportsTable" class="min-w-full text-sm rounded-xl">
+      <thead class="bg-gray-700 text-white">
+        <tr>
+          <th class="p-2">Created At</th>
+          <th class="p-2">Device ID</th>
+          <th class="p-2">Available</th>
+          <th class="p-2">Slot 1</th>
+          <th class="p-2">Slot 2</th>
+          <th class="p-2">Slot 3</th>
+          <th class="p-2">Slot 4</th>
+          <th class="p-2">Slot 5</th>
+          <th class="p-2">Slot 6</th>
+        </tr>
+      </thead>
+      <tbody class="bg-gray-800 text-white"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DataTables & Daterange Scripts -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    const table = $('#reportsTable').DataTable({
+      ajax: {
+        url: '/api/reports',
+        dataSrc: '',
+      },
+      columns: [
+        { data: 'created_at' },
+        { data: 'device_id' },
+        { data: 'available_slots' },
+        { data: 'slot1' },
+        { data: 'slot2' },
+        { data: 'slot3' },
+        { data: 'slot4' },
+        { data: 'slot5' },
+        { data: 'slot6' }
+      ],
+      dom: 'Bfrtip',
+      buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+      responsive: true,
+      order: [[0, 'desc']]
+    });
+
+    $('#dateFilter').daterangepicker({
+      opens: 'left'
+    }, function(start, end) {
+      $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+        const createdAt = data[0]; // First column
+        const createdDate = moment(createdAt);
+        return createdDate.isBetween(start, end, null, '[]');
+      });
+      table.draw();
+      $.fn.dataTable.ext.search.pop(); // Remove the filter after applying
+    });
+  });
+</script>
+{% endblock %}

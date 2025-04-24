@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %}Edit Reservation{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10">
+  <h2 class="text-3xl font-bold mb-6">✏️ Edit Reservation</h2>
+  <form method="POST" class="bg-gray-800 p-6 rounded-xl shadow space-y-6">
+
+    <div>
+      <label class="block mb-1 font-semibold">Slot</label>
+      <select name="slot_id" required class="w-full rounded p-2 text-black">
+        {% for i in range(1, 7) %}
+        <option value="{{ i }}" {% if reservation.slot_id == i %}selected{% endif %}>Slot {{ i }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-1 font-semibold">Vehicle</label>
+      <select name="vehicle_id" required class="w-full rounded p-2 text-black">
+        {% for vehicle in vehicles %}
+        <option value="{{ vehicle.vehicle_id }}" {% if reservation.vehicle_id == vehicle.vehicle_id %}selected{% endif %}>
+          {{ vehicle.registration_plate }} - {{ vehicle.brand }} {{ vehicle.model }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block mb-1 font-semibold">Expires At</label>
+      <input type="datetime-local" name="expires_at" value="{{ reservation.expires_at.strftime('%Y-%m-%dT%H:%M') }}" required class="w-full rounded p-2 text-black">
+    </div>
+
+    <div>
+      <label class="block mb-1 font-semibold">Fulfilled</label>
+      <select name="fulfilled" class="w-full rounded p-2 text-black">
+        <option value="0" {% if reservation.fulfilled == 0 %}selected{% endif %}>No</option>
+        <option value="1" {% if reservation.fulfilled == 1 %}selected{% endif %}>Yes</option>
+      </select>
+    </div>
+
+    <div class="text-right">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded shadow">
+        💾 Update Reservation
+      </button>
+    </div>
+
+  </form>
+</div>
+{% endblock %}

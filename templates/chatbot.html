@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+{% block title %}AI Chatbot Assistant{% endblock %}
+{% block content %}
+
+<div class="bg-gray-800 rounded-2xl shadow-2xl p-6 w-full max-w-2xl mx-auto">
+  <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">🎙️ AI Chatbot Assistant</h2>
+
+  <div id="chat-box" class="h-80 overflow-y-auto bg-gray-700 rounded-xl p-4 mb-4 space-y-2 text-sm sm:text-base"></div>
+
+  <div class="flex gap-2 items-center mb-2">
+    <input id="message" type="text" placeholder="Type your message..." class="flex-1 p-3 rounded-lg text-black focus:outline-none">
+    <button onclick="startListening()" class="bg-gray-600 hover:bg-blue-600 px-4 py-3 rounded-lg text-white" title="Voice Input">🎤</button>
+    <button onclick="sendMessage()" class="bg-blue-600 hover:bg-blue-700 px-4 py-3 rounded-lg text-white">Send</button>
+  </div>
+
+  <div class="flex gap-2 flex-wrap">
+    <button onclick="sendMessage('Hello')" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-md">Hello</button>
+    <button onclick="sendMessage('Check available parking spots')" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-md">Check parking</button>
+    <button onclick="sendMessage('Where is my car?')" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-md">Find my car</button>
+    <button onclick="sendMessage('Report suspicious activity in lot B')" class="bg-blue-500 hover:bg-blue-600 px-3 py-1.5 rounded-md">Report issue</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const chatBox = document.getElementById("chat-box");
+  const input = document.getElementById("message");
+
+  function appendMessage(role, text) {
+    const msg = document.createElement("div");
+    msg.className = role === "user" ? "text-right" : "text-left";
+    msg.innerHTML = `<div class="inline-block px-4 py-2 rounded-xl bg-${role === 'user' ? 'blue' : 'gray'}-600">${text}</div>`;
+    chatBox.appendChild(msg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+
+  function speak(text) {
+    const synth = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = synth.getVoices().find(v => v.name.includes("Female") || v.name.includes("Zira")) || synth.getVoices()[0];
+    synth.speak(utterance);
+  }
+
+  function sendMessage(text = null) {
+    const message = text || input.value.trim();
+    if (!message) return;
+
+    appendMessage("user", message);
+    input.value = "";
+
+    axios.post("/api/chat", { message })
+      .then(res => {
+        const reply = res.data.response;
+        appendMessage("bot", reply);
+        speak(reply);
+      })
+      .catch(() => {
+        const error = "⚠️ Error getting response.";
+        appendMessage("bot", error);
+        speak(error);
+      });
+  }
+
+  function startListening() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    recognition.onresult = e => {
+      const voiceText = e.results[0][0].transcript;
+      sendMessage(voiceText);
+    };
+
+    recognition.onerror = e => {
+      appendMessage("bot", "🎤 Voice input error: " + e.error);
+      speak("Sorry, voice input failed.");
+    };
+
+    recognition.start();
+  }
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+</script>
+
+{% endblock %}
