@@ -1,0 +1,27 @@
+[2025-04-13 23:20:38] 👤 You: sorry, i didn’t understand that.
+[2025-04-13 23:20:38] 🤖 Bot: Habari! Naweza kukusaidiaje kuhusu mfumo wa maegesho?
+
+[2025-04-13 23:20:56] 👤 You: sorry, i didn’t understand that.
+[2025-04-13 23:20:56] 🤖 Bot: Habari! Naweza kukusaidiaje kuhusu mfumo wa maegesho?
+
+[2025-04-13 23:21:09] 👤 You: asante
+[2025-04-13 23:21:09] 🤖 Bot: Habari! Naweza kukusaidiaje kuhusu mfumo wa maegesho?
+
+[2025-04-13 23:21:39] 👤 You: hello
+[2025-04-13 23:21:39] 🤖 Bot: Hi there! How can I help you with the parking system today?
+
+[2025-04-13 23:21:50] 👤 You: how many spots are available
+[2025-04-13 23:21:50] 🤖 Bot: The available slots include slot 1, slot 4, and overflow parking near the library.
+
+[2025-04-13 23:21:59] 👤 You: ok thank you
+[2025-04-13 23:21:59] 🤖 Bot: Hi there! How can I help you with the parking system today?
+
+[2025-04-13 23:24:03] 👤 You: sorry, i didn’t understand that.
+[2025-04-13 23:24:03] 🤖 Bot: Hi there! How can I help you with the parking system today?
+
+[2025-04-13 23:24:12] 👤 You: students park
+[2025-04-13 23:24:12] 🤖 Bot: Hi there! How can I help you with the parking system today?
+
+[2025-04-13 23:24:25] 👤 You: find car owner for slot
+[2025-04-13 23:24:25] 🤖 Bot: Retrieving vehicle information. Please wait... All vehicles appear to be in their assigned spots.
+
