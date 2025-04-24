@@ -1,0 +1,38 @@
+# 💡 Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.sqlite3
+
+# 💡 Virtual Environments
+venv/
+ENV/
+env/
+.venv/
+
+# 💡 System
+.DS_Store
+Thumbs.db
+
+# 💡 Logs
+*.log
+
+# 💡 IDEs
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 💡 Jupyter
+.ipynb_checkpoints/
+
+# 💡 Node/NPM (if using frontend with npm)
+node_modules/
+
+# 💡 Flask / Web-specific
+instance/
+*.db
+.env
