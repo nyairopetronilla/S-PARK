@@ -1,5 +1,5 @@
 # S-PARK
-# 🚗 AIoT-Based Car Parking System
+# AIoT Car Parking System
 
 ##  Project Summary
 
