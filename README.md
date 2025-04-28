@@ -53,7 +53,6 @@ This project was an AIoT-based Smart Parking System aimed at solving the parking
 - Enable digital payments for visitor parking.
 - Improve voice command recognition using transformer models.
 
-> *“No more circling the parking lot – now we park smart.”*
 
 
 
